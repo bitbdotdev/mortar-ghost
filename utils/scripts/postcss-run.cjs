@@ -2,7 +2,7 @@ const { readFileSync, writeFileSync } = require('fs');
 const chokidar = require('chokidar');
 const postcss = require('postcss');
 const postcssrc = require('postcss-load-config');
-const tailwindConfig = require('../../tailwind.config');
+const tailwindConfig = require('../../tailwind.config.cjs');
 
 /**
  * @type {import("postcss-load-config").ConfigContext}
@@ -47,8 +47,8 @@ if (isWatchMode) {
   compileCSS();
   const watcher = chokidar.watch([
     ...tailwindConfig.content,
-    './tailwind.config.js',
-    './src/**/*.{css,js}',
+    './tailwind.config.cjs',
+    './assets/css/**/*.{css,js,cjs}',
   ]);
   watcher.on('change', () => {
     console.log('File change detected. Recompiling CSS...\n');
