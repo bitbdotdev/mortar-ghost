@@ -1,0 +1,29 @@
+{
+  "name": "ghost-theme-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node utils/scripts/postcss-run.cjs --watch",
+    "prod": "NODE_ENV=production node utils/scripts/postcss.cjs",
+    "zip": "node utils/scripts/create-zip.cjs",
+    "scan": "gscan .",
+    "build": "npm run prod && npm run scan && npm run zip"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "archiver": "^6.0.1",
+    "autoprefixer": "^10.4.15",
+    "chokidar": "^3.5.3",
+    "cssnano": "^6.0.1",
+    "glob-to-regexp": "^0.4.1",
+    "gscan": "^4.38.0",
+    "is-glob": "^4.0.3",
+    "postcss": "^8.4.29",
+    "postcss-import": "^15.1.0",
+    "postcss-load-config": "^4.0.1",
+    "tailwindcss": "^3.3.3"
+  }
+}
