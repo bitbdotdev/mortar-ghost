@@ -1,6 +1,6 @@
-const getAbsolutePath = require('./utils/functions/get-absolute-path.cjs');
+import getAbsolutePath from './utils/functions/get-absolute-path.js';
 
-module.exports = ({ env }) => ({
+export default ({ env }) => ({
   from: getAbsolutePath('assets/css/main.css'),
   to: getAbsolutePath('assets/build/styles.css'),
   plugins: {

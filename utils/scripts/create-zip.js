@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const archiver = require('archiver');
-const isGlob = require('is-glob');
-const globToRegex = require('glob-to-regexp');
-const parseGitignore = require('../functions/parse-gitignore.cjs');
+import fs from 'fs';
+import path from 'path';
+import archiver from 'archiver';
+import isGlob from 'is-glob';
+import globToRegex from 'glob-to-regexp';
+import parseGitignore from '../functions/parse-gitignore.js';
 
 const sourceDir = './';
 const outputZip = path.resolve(path.dirname(process.cwd()), 'output.zip');
@@ -17,15 +17,15 @@ const archive = archiver('zip', {
 
 archive.pipe(output);
 
-function shouldIgnore(path, gitignorePatterns) {
+function shouldIgnore(filePath, gitignorePatterns) {
   return gitignorePatterns.some(pattern => {
-    if (isGlob(pattern)) return globToRegex(pattern).test(path);
-    return pattern === path;
+    if (isGlob(pattern)) return globToRegex(pattern).test(filePath);
+    return pattern === filePath;
   });
 }
 
 fs.readdirSync(sourceDir, { withFileTypes: true }).forEach(item => {
-  const itemPath = `${item.path}${item.name}`;
+  const itemPath = path.join(sourceDir, item.name);
   if (!shouldIgnore(item.name, gitignore) && item.name !== '.git') {
     console.log(item.name);
     if (item.isFile()) archive.file(itemPath, { name: item.name });

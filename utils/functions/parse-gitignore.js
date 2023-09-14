@@ -1,6 +1,12 @@
-const fs = require('fs');
+import fs from 'fs';
 
-function parseGitignore(filePath) {
+/**
+ * Parses the contents of a .gitignore file and returns an array of patterns.
+ *
+ * @param {string} filePath - The path to the .gitignore file to parse.
+ * @returns {string[]} An array of patterns from the .gitignore file.
+ */
+export default function parseGitignore(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
 
@@ -17,5 +23,3 @@ function parseGitignore(filePath) {
     return [];
   }
 }
-
-module.exports = parseGitignore;

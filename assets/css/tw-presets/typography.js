@@ -7,7 +7,7 @@ const rem = px => `${round(px / 10)}rem`;
 const em = (px, base) => `${round(px / base)}em`;
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   theme: {
     typography: ({ theme }) => ({
       DEFAULT: {

@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "node utils/scripts/postcss-run.cjs --watch",
-    "prod": "NODE_ENV=production node utils/scripts/postcss.cjs",
-    "zip": "node utils/scripts/create-zip.cjs",
+    "dev": "node utils/scripts/postcss-run.js --watch",
+    "prod": "NODE_ENV=production node utils/scripts/postcss.js",
+    "zip": "node utils/scripts/create-zip.js",
     "scan": "gscan .",
     "build": "npm run prod && npm run scan && npm run zip"
   },
@@ -19,6 +20,7 @@
     "autoprefixer": "^10.4.15",
     "chokidar": "^3.5.3",
     "cssnano": "^6.0.1",
+    "esbuild": "^0.19.3",
     "glob-to-regexp": "^0.4.1",
     "gscan": "^4.38.0",
     "is-glob": "^4.0.3",

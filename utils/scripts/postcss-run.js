@@ -1,8 +1,8 @@
-const { readFileSync, writeFileSync } = require('fs');
-const chokidar = require('chokidar');
-const postcss = require('postcss');
-const postcssrc = require('postcss-load-config');
-const tailwindConfig = require('../../tailwind.config.cjs');
+import fs from 'fs/promises'; // Import the fs.promises module
+import chokidar from 'chokidar';
+import postcss from 'postcss';
+import postcssrc from 'postcss-load-config';
+import tailwindConfig from '../../tailwind.config.js';
 
 /**
  * @type {import("postcss-load-config").ConfigContext}
@@ -13,20 +13,16 @@ const ctx = {
   env: process.env.NODE_ENV,
 };
 
-function compileCSS() {
+async function compileCSS() {
   const start = performance.now();
   try {
-    postcssrc(ctx).then(({ plugins, options }) => {
-      const css = readFileSync(options.from, 'utf8');
-      postcss(plugins)
-        .process(css, options)
-        .then(result => {
-          writeFileSync(options.to, result.css, 'utf8');
-          const end = performance.now();
-          const duration = (end - start).toFixed(2);
-          console.log(`CSS compiled in ${duration} ms\n`);
-        });
-    });
+    const { plugins, options } = await postcssrc(ctx); // Use async/await
+    const css = await fs.readFile(options.from, 'utf8'); // Use fs.promises
+    const result = await postcss(plugins).process(css, options); // Use async/await
+    await fs.writeFile(options.to, result.css, 'utf8'); // Use fs.promises
+    const end = performance.now();
+    const duration = (end - start).toFixed(2);
+    console.log(`CSS compiled in ${duration} ms\n`);
   } catch (e) {
     console.error(e);
   }
